@@ -22,3 +22,19 @@ class Inventory:
         reserved = self.reserved.get(sku, 0)
 
         return total - reserved
+
+    def reserve(self, order_id, sku, qty):
+        if qty <= 0:
+            raise ValueError("Invalid quantity")
+
+        if order_id in self.reservations:
+            raise ValueError("Duplicate order")
+
+        if self.available(sku) < qty:
+            raise ValueError("Insufficient stock")
+
+        self.reservations[order_id] = (sku, qty)
+
+        self.reserved[sku] = (
+            self.reserved.get(sku, 0) + qty
+        )
