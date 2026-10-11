@@ -38,3 +38,14 @@ class Inventory:
         self.reserved[sku] = (
             self.reserved.get(sku, 0) + qty
         )
+
+    def ship(self, order_id):
+        if order_id not in self.reservations:
+            raise KeyError("Unknown order")
+
+        sku, qty = self.reservations[order_id]
+
+        self.stock[sku] -= qty
+        self.reserved[sku] -= qty
+
+        del self.reservations[order_id]
