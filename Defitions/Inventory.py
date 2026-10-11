@@ -49,3 +49,15 @@ class Inventory:
         self.reserved[sku] -= qty
 
         del self.reservations[order_id]
+
+    def cancel(self, order_id):
+        if order_id not in self.reserveations:
+            raise KeyError("Unknown order")
+
+        sku, qty = self.reservations[order_id]
+
+        reserved[sku] -= qty
+
+        del self.reservations[order_id]
+
+        
