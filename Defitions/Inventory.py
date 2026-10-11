@@ -16,3 +16,9 @@ class Inventory:
             raise ValueError("Insufficient stock")
 
         self.stock[sku] -= qty
+
+    def available(self, sku):
+        total = self.stock.get(sku, 0)
+        reserved = self.reserved.get(sku, 0)
+
+        return total - reserved
